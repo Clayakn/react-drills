@@ -1,18 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(){
+    super(); 
+    this.state={
+      movies: ['Avengers: Infinity Wars','Avatar','Toy Story'],
+      userInput: '',
+    }
+  }
+  changeUserInput(val){
+    this.setState({
+      userInput: val,
+    })
+  }
+
   render() {
+    let moviesToDisplay = this.state.movies.filter((e,i) => {
+      return e.includes(this.state.userInput);
+    }).map((e,i)=>{
+      return (
+        <h3 key={i}>{e}</h3>
+      )
+      })
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input onChange={(event)=>this.changeUserInput(event.target.value)}></input>
+        {moviesToDisplay}
       </div>
     );
   }
